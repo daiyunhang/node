@@ -11,7 +11,19 @@ module.exports = appInfo => {
    * @type {Egg.EggAppConfig}
    **/
   const config = exports = {};
+  // 解决跨域
+  config.security = {
+    csrf: {
+      enable: false
+    },
+    domainWhiteList: ['*']
+  };
+  config.cors = {
+    origin: '*',
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS'
+  };
 
+  
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1591435656621_4372';
 
