@@ -28,7 +28,7 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1591435656621_4372';
 
   // add your middleware config here
-  config.middleware = [];
+  config.middleware = ['errorHandler'];
 
   // add your user config here
   const userConfig = {
@@ -42,6 +42,15 @@ module.exports = appInfo => {
       database: "hang_star"
     }
   };
+
+
+  // jwt
+  config.jwt = {
+    secret: '123456',
+    // secret: 'Great4-M',
+    enable: false, // default is false
+    match: /^\/api/, // optional
+  }
 
   return {
     ...config,
