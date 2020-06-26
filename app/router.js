@@ -11,8 +11,12 @@ module.exports = app => {
   
   // 以下需要jwt验证
   router.all('/*', app.middleware.headerAddAuthorization());
-  router.get('/api/user', controller.user.index)
-  router.post('/api/userEdit', controller.user.edit)
+  router.get('/api/getUser', controller.user.index) // 查询
+  router.post('/api/createUser', controller.user.create) // 新增
+  router.post('/api/removeUser', controller.user.remove) // 删除
+  router.post('/api/editUser', controller.user.edit)  // 修改
+
+  router.get('/api/getAuth', controller.auth.index) // 获取所有权限
 
 
 

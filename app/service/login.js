@@ -2,10 +2,15 @@ const Service = require('egg').Service;
 
 class Login extends Service {
   async index(username) {
-    return await this.ctx.model.User.findOne({
+    const { ctx } = this
+    return await ctx.model.User.findOne({
       where: {
         username: username,
       },
+      include: {
+        as: "Role",
+        model: ctx.model.Role,
+      }
     });
   }
 }

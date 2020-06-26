@@ -1,7 +1,7 @@
 module.exports = app => {
     const { STRING, INTEGER } = app.Sequelize;
     const User = app.model.define("users", {
-        id:{
+        id: {
             type: INTEGER,
             text: "id",
             primaryKey: true,
@@ -23,17 +23,49 @@ module.exports = app => {
             type: STRING(30),
             text: "昵称"
         },
-        auth: {
-            type: STRING(30),
-            text: "权限"
+        roleId: {
+            type: INTEGER,
+            text: "角色"
         },
-        imgUrl:{
+        imgUrl: {
             type: STRING(30),
             text: "头像"
         }
     }, {
-        timestamps: false
+        timestamps: false,
+        freezeTableName: true,
+        tableName: 'Users',
     });
-    // 数据库同步  User.sync({force: true})
+
+    User.associate = function () {
+        // app.model.User.hasOne(app.model.Role, { 
+        //     foreignKey: 'roleId',
+        //     as:'Role'
+        // });
+        // app.model.User.hasMany(app.model.Auth,{
+        //     foreignKey:'authId',
+        //     as:'Auths'
+        // })
+
+        // app.model.User.belongsToMany(app.model.Auth, {through: 'Role',oreignKey: 'authId',  as:'Role'});
+        app.model.User.belongsTo(app.model.Role, {
+            foreignKey: 'roleId',
+            as: "Role"
+        });
+
+
+
+        // foreignKey的值为：User表的authId与role（中间表）对应的字段名,through为中间表的模型
+        // app.model.User.belongsToMany(app.model.Role, { 
+        //     through: app.model.Auth, 
+        //     foreignKey: 'authId', 
+        //     otherKey: 'roleId' ,
+        //     as:'Role'
+        // }); 
+
+
+
+    }
+
     return User;
 };

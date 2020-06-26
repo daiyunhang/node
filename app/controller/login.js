@@ -2,13 +2,14 @@
 
 const Controller = require('egg').Controller;
 const fs = require('fs');
+const crypto = require('crypto');
 
 class LoginController extends Controller {
     async login() {
         const { ctx, app } = this;
         const { username, password } = ctx.request.body || {};
         const name = await ctx.service.login.index(username);
-        if (name && name.password == password) {
+        if (name && name.password == this.getMd5Data(password)) {
             // 验证通过，生成token
             const token = app.jwt.sign({
                 name: name.username,
@@ -19,7 +20,9 @@ class LoginController extends Controller {
                 maxAge: 24 * 3600 * 1000
                 // maxAge: 3000 //三秒
             })
-
+            // console.log(ctx,'ctx.modelctx.modelctx.modelctx.modelctx.model')
+            // let arr = await ctx.model.User.indexItemById(user.id)
+            // console.log(arr,'arr---------------------------------------------')
             ctx.body = {
                 code: 200,
                 data: name,
@@ -37,6 +40,10 @@ class LoginController extends Controller {
         ctx.cookies.set('token', null)
         // 设置响应内容和响应状态码
         ctx.helper.success({ ctx })
+    }
+    // 专门对数据进行md5加密的方法，输入明文返回密文
+    getMd5Data(data) {
+        return crypto.createHash('md5').update(data).digest('hex');
     }
 }
 
