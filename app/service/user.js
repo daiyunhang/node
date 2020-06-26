@@ -6,18 +6,18 @@ class UserService extends Service {
         const { ctx } = this;
         // return await ctx.model.User.findAll()
         return await ctx.model.User.findAll({
-            include: {
+            include: [{
                 as: "Role",
                 model: ctx.model.Role.scope('proAttr')
-            }
+            }]
         })
     }
 
     // 新增人员
-    async addUser(username, pwd, nickname, authId) {
+    async addUser(username, pwd, nickname, roleId) {
         const { ctx } = this;
         const password = this.getMd5Data(pwd);
-        await ctx.model.User.create({ username, password, nickname, authId });
+        await ctx.model.User.create({ username, password, nickname, roleId });
     }
     // 删除人员
     async removeUser(id) {

@@ -23,6 +23,11 @@ module.exports = app => {
         timestamps: false,
         freezeTableName: true,
         tableName: 'Auths',
+        scopes: {
+            proAttr: {
+                attributes: ['authName']
+            }
+        }
     });
     // 数据库同步 
     return Auth;

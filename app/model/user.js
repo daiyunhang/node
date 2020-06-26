@@ -39,27 +39,36 @@ module.exports = app => {
 
     User.associate = function () {
         // app.model.User.hasOne(app.model.Role, { 
-        //     foreignKey: 'roleId',
+        //     foreignKey: 'authId',
         //     as:'Role'
         // });
         // app.model.User.hasMany(app.model.Auth,{
         //     foreignKey:'authId',
         //     as:'Auths'
         // })
+        // app.model.User.hasMany(app.model.Role,{
+        //     foreignKey:'authId',
+        //     as:'Role'
+        // })
 
-        // app.model.User.belongsToMany(app.model.Auth, {through: 'Role',oreignKey: 'authId',  as:'Role'});
         app.model.User.belongsTo(app.model.Role, {
             foreignKey: 'roleId',
             as: "Role"
         });
-
-
-
+        
         // foreignKey的值为：User表的authId与role（中间表）对应的字段名,through为中间表的模型
+
         // app.model.User.belongsToMany(app.model.Role, { 
         //     through: app.model.Auth, 
         //     foreignKey: 'authId', 
-        //     otherKey: 'roleId' ,
+        //     as:'Role'
+        // }); 
+
+
+        // 测试
+        // app.model.User.belongsToMany(app.model.Role, { 
+        //     through: app.model.Auth, 
+        //     foreignKey: 'authId', 
         //     as:'Role'
         // }); 
 

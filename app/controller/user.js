@@ -8,7 +8,6 @@ class USerController extends Controller {
         let result = null
         if (name == 'admin') {
             result = await ctx.service.user.getAll()
-            console.log(result,'sssssssssssssssadmin')
         } else {
             let arr = []
             arr.push(await ctx.service.login.index(name));
@@ -24,8 +23,8 @@ class USerController extends Controller {
     // 创建人员
     async create() {
         const { ctx } = this;
-        const { username, password, nickname, authId } = ctx.request.body;
-        await ctx.service.user.addUser(username, password, nickname, authId);
+        const { username, password, nickname, roleId } = ctx.request.body;
+        await ctx.service.user.addUser(username, password, nickname, roleId);
         ctx.body = { code: 200, msg: '新增成功' };
     }
     // 删除人员
