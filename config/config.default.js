@@ -35,10 +35,10 @@ module.exports = appInfo => {
     // myAppName: 'egg',
     sequelize: {
       dialect: "mysql",
-      host: "rm-2zel8l677nq87f0353o.mysql.rds.aliyuncs.com",
+      host: "152.136.217.197",
       port: 3306,
-      username: "lucas",
-      password: "Daiyunhang01",
+      username: "root",
+      password: "123456",
       database: "hang_star"
     }
   };
